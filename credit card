@@ -1,0 +1,10 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Load the dataset
+data = pd.read_csv('credit_card_data.csv')
+
+# Split the data into training and testing sets
+X = data.drop('Class', axis=1)  # Features
+y = data['Class']  # Target variable (fraud or not)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
