@@ -1,10 +1,27 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split
+import random
 
-# Load the dataset
-data = pd.read_csv('credit_card_data.csv')
+def generate_data(num_samples, fraud_percentage):
+    data = []
+    for _ in range(num_samples):
+        is_fraud = random.random() < fraud_percentage
+        amount = random.uniform(1, 1000)
+        data.append((amount, is_fraud))
+    return data
 
-# Split the data into training and testing sets
-X = data.drop('Class', axis=1)  # Features
-y = data['Class']  # Target variable (fraud or not)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+def split_data(data, train_percentage):
+    random.shuffle(data)
+    split_index = int(len(data) * train_percentage)
+    train_data = data[:split_index]
+    test_data = data[split_index:]
+    return train_data, test_data
+
+def train_model(train_data):
+    pass
+
+def test_model(model, test_data):
+    pass
+
+data = generate_data(num_samples=1000, fraud_percentage=0.02)
+train_data, test_data = split_data(data, train_percentage=0.8)
+model = train_model(train_data)
+test_model(model, test_data)
